@@ -10,11 +10,12 @@ API de decisão que compõe políticas independentes e devolve explicações aud
 
 ```bash
 mvn verify
-mvn org.owasp:dependency-check-maven:check
 mvn spring-boot:run
 ```
 
 Veja [Arquitetura](docs/architecture.md) e [ADR-001](docs/adr/001-explainable-deny.md).
+
+O CI executa auditoria de dependências com Trivy e falha para vulnerabilidades corrigíveis de severidade alta ou crítica.
 
 ## Trade-offs
 
