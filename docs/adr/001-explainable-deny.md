@@ -1,13 +1,13 @@
-# ADR-001: negar com explicações
+# ADR-001: Deny with explanations
 
 ## Status
 
-Aceito.
+Accepted for the portfolio scope.
 
-## Decisão
+## Decision
 
-Avaliar todas as políticas e retornar todas as violações, em vez de interromper na primeira.
+Evaluate every policy and return all violations instead of stopping at the first one.
 
-## Consequências
+## Consequences
 
-Melhora auditoria e diagnóstico. Políticas caras ou sensíveis podem exigir short-circuit e filtragem de motivos na borda pública.
+This improves auditability and diagnosis. Expensive or sensitive policies may require short-circuiting and filtering of reasons at the public boundary.

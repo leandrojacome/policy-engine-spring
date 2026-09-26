@@ -1,19 +1,19 @@
-# Arquitetura
+# Architecture
 
-## Contexto e linguagem
+## Domain model
 
-Bounded context **Decisão de Acesso**. `AccessContext` e `Decision` são value objects imutáveis; políticas expressam violações na linguagem do domínio. A invariante central é: uma decisão só é permitida quando nenhuma política relata violação.
+The **Access Decision** bounded context models `AccessContext` and `Decision` as immutable value objects. Policies express violations in domain language. The central invariant is that access is allowed only when no policy reports a violation.
 
-## Fronteiras
+## Layers
 
-- **Domínio:** contexto e decisão, sem Spring.
-- **Aplicação:** `EvaluateAccess` avalia o conjunto de políticas.
-- **Infraestrutura:** políticas configuradas, composição Spring e controller HTTP.
+- **Domain:** context and decision, without Spring.
+- **Application:** `EvaluateAccess` evaluates the policy collection.
+- **Infrastructure:** configured policies, Spring composition, and the HTTP controller.
 
-## Padrões e alternativas
+## Patterns and alternatives
 
-- **Strategy:** cada `Policy` substitui uma regra sem alterar o avaliador. Um bloco de `if/else` central foi descartado por concentrar motivos de mudança.
-- **Composite por composição:** o caso de uso trata várias Strategies uniformemente e agrega violações. Chain of Responsibility foi descartada porque short-circuit perderia explicações úteis.
-- Visitor não foi usado: as políticas são operações, não uma estrutura heterogênea a percorrer.
+- **Strategy:** each `Policy` replaces a rule without changing the evaluator. A central `if/else` block was rejected because it concentrates unrelated reasons to change.
+- **Composite by composition:** the use case treats Strategies uniformly and aggregates violations. Chain of Responsibility was rejected because short-circuiting would lose useful explanations.
+- Visitor is not used because policies are operations, not a heterogeneous object structure.
 
-As políticas em código favorecem tipagem e revisão. Uma DSL traria autonomia operacional, mas exigiria parser, sandbox, versionamento e governança.
+Code-based policies favor typing and review. A DSL would add operational autonomy but would require a parser, sandbox, versioning, and governance.

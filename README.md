@@ -1,29 +1,30 @@
-# Policy Engine — Spring Boot
+# Explainable Policy Engine with Spring Boot
 
-API de decisão que compõe políticas independentes e devolve explicações auditáveis. O exemplo avalia papel obrigatório e janela de horário, mas o núcleo não depende do Spring.
+A decision API that composes independent policies and returns auditable explanations. The example evaluates a required role and a time window while keeping the core independent of Spring.
 
-## Arquitetura e padrões
+## Architecture and patterns
 
-- **Strategy (GoF):** cada `Policy` encapsula uma regra substituível.
-- **Composite por composição:** o caso de uso avalia um conjunto de políticas e agrega violações.
-- **Dependency Inversion:** Spring e HTTP ficam nos adaptadores; domínio e aplicação são Java puro.
-- **DDD proporcional:** bounded context de Decisão de Acesso, value objects imutáveis e linguagem explícita de violações.
+- **Strategy:** each `Policy` encapsulates a replaceable rule.
+- **Composite by composition:** the use case evaluates a policy collection and aggregates violations.
+- **Dependency Inversion:** Spring and HTTP stay in adapters; domain and application are plain Java.
+- **Pragmatic DDD:** the Access Decision bounded context uses immutable value objects and an explicit violation language.
+
+## Run
 
 ```bash
-mvn verify
-mvn spring-boot:run
+mvn test
 ```
 
-Veja [Arquitetura](docs/architecture.md) e [ADR-001](docs/adr/001-explainable-deny.md).
+See [Architecture](docs/architecture.md) and [ADR-001](docs/adr/001-explainable-deny.md).
 
-O CI executa auditoria de dependências com Trivy e falha para vulnerabilidades corrigíveis de severidade alta ou crítica.
+CI runs tests and scans dependencies with Trivy, failing on fixable high or critical vulnerabilities.
 
 ## Trade-offs
 
-As políticas são configuradas em código para privilegiar tipagem e rastreabilidade. Uma DSL aumentaria a autonomia operacional, mas também exigiria parser, versionamento, sandbox e governança.
+Policies are configured in code to favor typing and traceability. A DSL would increase operational autonomy but would also require parsing, versioning, sandboxing, and governance.
 
-Chain of Responsibility foi descartada porque o domínio precisa retornar todas as violações; Visitor não agregaria valor a uma lista homogênea de Strategies.
+Chain of Responsibility was rejected because the domain must return every violation. Visitor adds no value to a homogeneous collection of Strategies.
 
-## Licença
+## License
 
-MIT.
+MIT
